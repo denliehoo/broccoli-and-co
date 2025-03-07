@@ -1,40 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+## TODO:
 
-## Getting Started
+- Fix on refresh, looks like no styles
+- maybe need a 404 error page https://nextjs.org/docs/pages/getting-started/project-structure
+- Write unit test and ensure test coverage / performance. Maybe do unit test and cypress for integration
+- Set up prettier correctly
+- A nicer layout?
+- Documentation in readme
+  - How to install ,build, etc
+  - Explain usage of tech stack
+- Test for mobile friendliness
+- Update logos
+- Clean up code:
+  - Remove the unnecessary code (e.g. the API in pages)
+  - Remove unncessary comments
+  - Make sure all colors using ecolors, where practical
 
-First, run the development server:
+# BROCCOLI & CO. LANDIN PAGE
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Overview
+
+This is a simple single-page web application for Broccoli & Co., an upcoming online service company. The application allows users to request an invitation by entering their Full Name, Email, and Confirm Email.
+
+## Features
+
+- A clean and responsive homepage with a fixed header and footer.
+- A centered section containing a heading, description, and a "Request an Invite" button.
+- A popup form for users to enter their details.
+- Form validation to ensure correct input before submitting.
+- API integration to submit the request.
+- Error handling for invalid responses from the backend.
+
+## Tech Stack
+
+This project is built using modern web technologies:
+
+- Next.js - A React framework that enhances SEO, making it ideal for landing pages.
+- React - Component-based front-end library for building interactive UIs.
+- Styled Components - Enables CSS-in-JS for scoped and dynamic styling.
+- React Hook Form - Lightweight and efficient form validation with built-in support for React components.
+- Axios - Simplifies HTTP requests to the backend API.
+- ESLint + Prettier - Ensures code consistency and quality.
+- Jest + React Testing Library - Provides unit and integration testing for form validation and API interactions.
+
+## Installation
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/denliehoo/broccoli-and-co.git
+   cd broccoli-and-co
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Run the development server:
+   ```sh
+   npm run dev
+   ```
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Running Tests
+
+To run unit and integration tests:
+
+```sh
+npm run test
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deployment
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+To build the app for production:
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```sh
+npm run build
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+To start the production server:
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```sh
+npm run start
+```
 
-## Learn More
+## Notes
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+- The UI is fully responsive and works well on both desktop and mobile.
+- The project follows best practices for maintainability and performance.
+- Form validation is implemented to prevent unnecessary API calls.
