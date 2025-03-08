@@ -2,7 +2,7 @@
 
 - Fix on refresh, looks like no styles
 - maybe need a 404 error page https://nextjs.org/docs/pages/getting-started/project-structure
-- Write unit test and ensure test coverage / performance. Maybe do unit test and cypress for integration
+- Write unit test and ensure test coverage / performance. Maybe do unit test and cypress for integration https://nextjs.org/docs/pages/building-your-application/testing/jest
 - Set up prettier correctly
 - A nicer layout?
 - Documentation in readme
@@ -19,7 +19,7 @@
 
 ## Overview
 
-This is a simple single-page web application for Broccoli & Co., an upcoming online service company. The application allows users to request an invitation by entering their Full Name, Email, and Confirm Email.
+This is a simple single-page web application for Broccoli & Co., an upcoming online service company. The application allows users to request an invitation by entering their Full name, Email, and Confirm email.
 
 ## Features
 

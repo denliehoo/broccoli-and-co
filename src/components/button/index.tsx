@@ -8,14 +8,19 @@ interface IButtonProps
     IStyledButtonProps {}
 
 interface IStyledButtonProps {
-  isFullWidth?: boolean;
-  loading?: boolean;
+  $isFullWidth?: boolean;
+  $loading?: boolean;
 }
 
-const Button = ({ children, isFullWidth, loading, ...rest }: IButtonProps) => {
+const Button = ({
+  children,
+  $isFullWidth,
+  $loading,
+  ...rest
+}: IButtonProps) => {
   return (
-    <StyledButton {...rest} disabled={loading} isFullWidth={isFullWidth}>
-      {loading && <LoadingSpinner />}
+    <StyledButton {...rest} disabled={$loading} $isFullWidth={$isFullWidth}>
+      {$loading && <LoadingSpinner />}
       {children}
     </StyledButton>
   );
@@ -24,7 +29,7 @@ const Button = ({ children, isFullWidth, loading, ...rest }: IButtonProps) => {
 export default Button;
 
 const StyledButton = styled.button<IStyledButtonProps>`
-  width: ${({ isFullWidth }) => (isFullWidth ? '100%' : 'auto')};
+  width: ${({ $isFullWidth }) => ($isFullWidth ? '100%' : 'auto')};
   padding: 12px 20px;
   font-size: 16px;
   font-weight: bold;

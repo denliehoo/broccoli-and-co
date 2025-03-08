@@ -2,6 +2,7 @@ import { ISendInvitation } from '@/api';
 import Button from '@/components/button';
 import FormItem from '@/components/form-item';
 import { PATTERNS } from '@/constants/patterns';
+import { VALIDATION_MSG } from '@/constants/validation-messages';
 import { getApiErrorMessage } from '@/request';
 import { EColors } from '@/themes';
 import axios from 'axios';
@@ -36,13 +37,16 @@ const InviteModalForm: FC<IInviteModalForm> = ({ onSubmitSuccess }) => {
         params,
       );
       // await apiSendInvitation(params);
+      onSubmitSuccess();
     } catch (error) {
+      // console.log(error);
       const errorMessage = getApiErrorMessage(error);
+      // console.log('setting error message', errorMessage);
       setSubmitError(errorMessage);
     }
     // setSubmitError('Bad Request: Email is already in use');
     // console.log('set error');
-    onSubmitSuccess();
+    // onSubmitSuccess();
   };
 
   const resetSubmitError = () => {
@@ -54,12 +58,12 @@ const InviteModalForm: FC<IInviteModalForm> = ({ onSubmitSuccess }) => {
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <FormItem
-        label="Full Name"
+        label="Full name"
         register={register('name', {
-          required: 'Please input your full name',
+          required: VALIDATION_MSG.REQUIRED.NAME,
           minLength: {
             value: 3,
-            message: 'Name must be at least 3 characters',
+            message: VALIDATION_MSG.MIN_LENGTH.NAME,
           },
           onChange: resetSubmitError,
         })}
@@ -69,7 +73,7 @@ const InviteModalForm: FC<IInviteModalForm> = ({ onSubmitSuccess }) => {
       <FormItem
         label="Email"
         register={register('email', {
-          required: 'Please input your email',
+          required: VALIDATION_MSG.REQUIRED.EMAIL,
           pattern: PATTERNS.EMAIL,
           onChange: resetSubmitError,
         })}
@@ -77,19 +81,19 @@ const InviteModalForm: FC<IInviteModalForm> = ({ onSubmitSuccess }) => {
         disabled={isSubmitting}
       />
       <FormItem
-        label="Confirm Email"
+        label="Confirm email"
         register={register('confirmEmail', {
-          required: 'Please input your email',
+          required: VALIDATION_MSG.REQUIRED.EMAIL,
           pattern: PATTERNS.EMAIL,
           validate: (value) =>
-            value === watch('email') || 'Emails do not match',
+            value === watch('email') || VALIDATION_MSG.VALIDATE.MATCH_EMAIL,
           onChange: resetSubmitError,
         })}
         error={errors.confirmEmail}
         disabled={isSubmitting}
       />
 
-      <Button type="submit" isFullWidth loading={isSubmitting}>
+      <Button type="submit" $isFullWidth $loading={isSubmitting}>
         Submit
       </Button>
       {submitError && <StyledError>{submitError}</StyledError>}

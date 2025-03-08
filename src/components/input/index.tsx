@@ -3,7 +3,7 @@ import { FC, HTMLProps } from 'react';
 import styled from 'styled-components';
 
 interface IStyledInput {
-  isError?: boolean;
+  $isError?: boolean;
 }
 
 export interface IInput extends IStyledInput, HTMLProps<HTMLInputElement> {}
@@ -18,7 +18,8 @@ const StyledInput = styled.input<IStyledInput>`
   width: 100%;
   padding: 12px;
   font-size: 1 rem;
-  border: 2px solid ${({ isError }) => (isError ? EColors.ERROR : EColors.GRAY)};
+  border: 2px solid
+    ${({ $isError }) => ($isError ? EColors.ERROR : EColors.GRAY)};
   border-radius: 8px;
   background: ${EColors.WHITE};
   color: ${EColors.BLACK};
@@ -30,10 +31,10 @@ const StyledInput = styled.input<IStyledInput>`
 
   &:focus {
     outline: none;
-    border-color: ${({ isError }) =>
-      isError ? EColors.ERROR : EColors.PRIMARY};
+    border-color: ${({ $isError }) =>
+      $isError ? EColors.ERROR : EColors.PRIMARY};
     box-shadow: 0 0 5px
-      ${({ isError }) => (isError ? EColors.ERROR : EColors.SECONDARY)};
+      ${({ $isError }) => ($isError ? EColors.ERROR : EColors.SECONDARY)};
   }
 
   &:disabled {

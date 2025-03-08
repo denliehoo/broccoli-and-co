@@ -8,14 +8,14 @@ class ApiRequest {
     const timeout = setTimeout(() => controller.abort(), 5000);
 
     try {
-      console.log('Sending request to:', url);
-      console.log('Request payload:', params);
+      // console.log('Sending request to:', url);
+      // console.log('Request payload:', params);
 
       const response = await axios.post(url, params, {
         signal: controller.signal,
       });
 
-      console.log('Response:', response.data);
+      // console.log('Response:', response.data);
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error) && error.code === 'ECONNABORTED') {
