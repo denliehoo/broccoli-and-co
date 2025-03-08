@@ -13,7 +13,7 @@ const Modal: FC<IModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return (
-    <StyledOverlay onClick={onClose}>
+    <StyledOverlay onClick={onClose} data-testid="modal-overlay">
       <StyledContainer onClick={(e) => e.stopPropagation()}>
         <StyledClosedButton onClick={onClose}>×</StyledClosedButton>
         {children}

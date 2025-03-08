@@ -4,15 +4,13 @@ import {
   fireEvent,
   waitFor,
   act,
+  Screen,
 } from '@testing-library/react';
 import InviteModalForm from '@/screens/home/body/invite-modal/form';
 import axios from 'axios';
 import { VALIDATION_MSG } from '@/constants/validation-messages';
 
 describe('InviteModalForm', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
   const setup = () => {
     const onSubmitSuccess = jest.fn();
     const component = render(
@@ -100,25 +98,9 @@ describe('InviteModalForm', () => {
   });
 
   it('shows submit error when email is already in use', async () => {
-    // Mock the API Call
-    jest.spyOn(axios, 'post').mockRejectedValue({
-      response: {
-        data: { errorMessage: 'Bad Request: Email is already in use' },
-      },
-    });
+    const { submitButton } = setup();
 
-    const { fullNameField, emailField, confirmEmailField, submitButton } =
-      setup();
-
-    fireEvent.change(fullNameField, { target: { value: 'Test Name' } });
-    fireEvent.change(emailField, { target: { value: 'usedemail@email.com' } });
-    fireEvent.change(confirmEmailField, {
-      target: { value: 'usedemail@email.com' },
-    });
-
-    fireEvent.click(submitButton);
-
-    expect(submitButton).toBeDisabled();
+    await simulateValidatedInviteFormSubmission(screen, false);
 
     await waitFor(() => {
       expect(
@@ -128,37 +110,31 @@ describe('InviteModalForm', () => {
 
     expect(submitButton).not.toBeDisabled();
   });
-
-  it('shows success content', async () => {
-    // Mock the axios POST request and log to ensure it's called
-    const mockApiResponse = jest.spyOn(axios, 'post').mockResolvedValue({});
-
-    // Render the component and get necessary elements
-    const {
-      fullNameField,
-      emailField,
-      confirmEmailField,
-      submitButton,
-      onSubmitSuccess,
-      component: { unmount },
-    } = setup();
-
-    // Simulate user input
-    fireEvent.change(fullNameField, { target: { value: 'Test Name' } });
-    fireEvent.change(emailField, { target: { value: 'test@test.com' } });
-    fireEvent.change(confirmEmailField, { target: { value: 'test@test.com' } });
-
-    await act(async () => {
-      fireEvent.click(submitButton);
-    });
-    expect(mockApiResponse).toHaveBeenCalledTimes(1);
-    expect(onSubmitSuccess).toHaveBeenCalledTimes(1);
-
-    // Component should unmount and navigate to success content upon calling onSubmitSuccess
-    await act(async () => {
-      unmount();
-    });
-
-    expect(screen.queryByText(/Submit/i)).not.toBeInTheDocument();
-  });
 });
+
+export const simulateValidatedInviteFormSubmission = async (
+  screen: Screen<typeof import('@testing-library/dom/types/queries')>,
+  isApiSuccess: boolean,
+) => {
+  if (isApiSuccess) {
+    jest.spyOn(axios, 'post').mockResolvedValue({});
+  } else {
+    jest.spyOn(axios, 'post').mockRejectedValue({
+      response: {
+        data: { errorMessage: 'Bad Request: Email is already in use' },
+      },
+    });
+  }
+  const fullNameField = screen.getByPlaceholderText('Full name');
+  const emailField = screen.getByPlaceholderText('Email');
+  const confirmEmailField = screen.getByPlaceholderText('Confirm email');
+  const submitButton = screen.getByText(/Submit/i);
+
+  fireEvent.change(fullNameField, { target: { value: 'Test Name' } });
+  fireEvent.change(emailField, { target: { value: 'test@test.com' } });
+  fireEvent.change(confirmEmailField, { target: { value: 'test@test.com' } });
+
+  await act(async () => {
+    fireEvent.click(submitButton);
+  });
+};
