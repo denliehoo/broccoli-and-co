@@ -5,19 +5,6 @@ import HomeHeader from './header';
 import HomeFooter from './footer';
 import HomeBody from './body';
 import { MIN_WIDTH } from '@/constants/break-point';
-// import { Geist, Geist_Mono } from 'next/font/google';
-
-// import Image from 'next/image';
-
-{
-  /* <Image
-src="/next.svg"
-alt="Broccoli & Co. logo"
-width={180}
-height={38}
-priority
-/> */
-}
 
 const Home: FC = () => {
   return (
