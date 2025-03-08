@@ -1,27 +1,31 @@
 import axios, { AxiosError } from 'axios';
 
-// TODO: Figure out why this doesnt work when we have error
 class ApiRequest {
-  static async post(url: string, params?: unknown) {
+  static async post(url: string, params?: unknown, signal?: AbortSignal) {
     const controller = new AbortController();
-
     const timeout = setTimeout(() => controller.abort(), 5000);
 
     try {
-      // console.log('Sending request to:', url);
-      // console.log('Request payload:', params);
-
+      // Use provided signal by API call if available
       const response = await axios.post(url, params, {
-        signal: controller.signal,
+        signal: signal || controller.signal,
       });
 
-      // console.log('Response:', response.data);
       return response.data;
     } catch (error) {
-      if (axios.isAxiosError(error) && error.code === 'ECONNABORTED') {
-        console.error('Request was aborted');
+      if (axios.isAxiosError(error)) {
+        if (error.code === 'ECONNABORTED') {
+          console.error('Request was aborted due to timeout');
+        } else if (error.response) {
+          console.error(
+            `API Error: ${error.response.status} - ${error.response.statusText}`,
+          );
+          console.error('Response Data:', error.response.data);
+        } else {
+          console.error('Axios error:', error.message);
+        }
       } else {
-        console.error('Error:', error);
+        console.error('Unexpected error:', error);
       }
       throw error;
     } finally {

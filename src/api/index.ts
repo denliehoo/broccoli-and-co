@@ -1,10 +1,12 @@
 import { API_URLS } from '@/constants/api-urls';
-import axios from 'axios';
+import ApiRequest from '@/request';
 
 export interface ISendInvitation {
   name: string;
   email: string;
 }
 
-export const apiSendInvitation = (params: ISendInvitation) =>
-  axios.post(API_URLS.SEND_INVITE, params);
+export const apiSendInvitation = (
+  params: ISendInvitation,
+  signal?: AbortSignal,
+) => ApiRequest.post(API_URLS.SEND_INVITE, params, signal);

@@ -1,12 +1,11 @@
-import { ISendInvitation } from '@/api';
+import { apiSendInvitation, ISendInvitation } from '@/api';
 import Button from '@/components/button';
 import FormItem from '@/components/form-item';
 import { PATTERNS } from '@/constants/patterns';
 import { VALIDATION_MSG } from '@/constants/validation-messages';
 import { getApiErrorMessage } from '@/request';
 import { EColors } from '@/themes';
-import axios from 'axios';
-import { FC, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { styled } from 'styled-components';
 
@@ -19,34 +18,30 @@ interface IInviteModalForm {
 }
 
 const InviteModalForm: FC<IInviteModalForm> = ({ onSubmitSuccess }) => {
-  const { register, handleSubmit, watch, formState } = useForm<IFormInput>();
+  const abortControllerRef = useRef<AbortController | null>(null);
+  const { register, handleSubmit, watch, formState, trigger } =
+    useForm<IFormInput>({ mode: 'onChange' });
 
   const { errors, isSubmitting } = formState;
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    console.log(`Submitting data:`, data);
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
 
     const { name, email } = data;
     const params = { name, email };
-    // Simulate failure
-    // const params = { email: 'usedemail@airwallex.com', name };
     try {
-      await axios.post(
-        'https://l94wc2001h.execute-api.ap-southeast-2.amazonaws.com/prod/fake-auth',
-        params,
-      );
-      // await apiSendInvitation(params);
+      await apiSendInvitation(params, controller.signal);
       onSubmitSuccess();
     } catch (error) {
-      // console.log(error);
       const errorMessage = getApiErrorMessage(error);
-      // console.log('setting error message', errorMessage);
       setSubmitError(errorMessage);
     }
-    // setSubmitError('Bad Request: Email is already in use');
-    // console.log('set error');
-    // onSubmitSuccess();
   };
 
   const resetSubmitError = () => {
@@ -54,6 +49,21 @@ const InviteModalForm: FC<IInviteModalForm> = ({ onSubmitSuccess }) => {
       setSubmitError(null);
     }
   };
+
+  const onEmailFieldChange = () => {
+    resetSubmitError();
+    if (watch('confirmEmail')) {
+      trigger('confirmEmail');
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
+  }, []);
 
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
@@ -75,7 +85,7 @@ const InviteModalForm: FC<IInviteModalForm> = ({ onSubmitSuccess }) => {
         register={register('email', {
           required: VALIDATION_MSG.REQUIRED.EMAIL,
           pattern: PATTERNS.EMAIL,
-          onChange: resetSubmitError,
+          onChange: onEmailFieldChange,
         })}
         error={errors.email}
         disabled={isSubmitting}
