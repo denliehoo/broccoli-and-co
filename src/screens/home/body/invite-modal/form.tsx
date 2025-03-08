@@ -3,13 +3,14 @@ import Button from '@/components/button';
 import FormItem from '@/components/form-item';
 import { PATTERNS } from '@/constants/patterns';
 import { VALIDATION_MSG } from '@/constants/validation-messages';
+import { useAbortController } from '@/hooks/use-abort-controller';
 import { getApiErrorMessage } from '@/request';
 import { EColors } from '@/themes';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { styled } from 'styled-components';
 
-interface IFormInput extends ISendInvitation {
+export interface IFormInput extends ISendInvitation {
   confirmEmail: string;
 }
 
@@ -18,25 +19,21 @@ interface IInviteModalForm {
 }
 
 const InviteModalForm: FC<IInviteModalForm> = ({ onSubmitSuccess }) => {
-  const abortControllerRef = useRef<AbortController | null>(null);
   const { register, handleSubmit, watch, formState, trigger } =
     useForm<IFormInput>({ mode: 'onChange' });
 
   const { errors, isSubmitting } = formState;
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-    }
+  const createAbortController = useAbortController();
 
-    const controller = new AbortController();
-    abortControllerRef.current = controller;
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    const signal = createAbortController();
 
     const { name, email } = data;
     const params = { name, email };
     try {
-      await apiSendInvitation(params, controller.signal);
+      await apiSendInvitation(params, signal);
       onSubmitSuccess();
     } catch (error) {
       const errorMessage = getApiErrorMessage(error);
@@ -56,14 +53,6 @@ const InviteModalForm: FC<IInviteModalForm> = ({ onSubmitSuccess }) => {
       trigger('confirmEmail');
     }
   };
-
-  useEffect(() => {
-    return () => {
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
-      }
-    };
-  }, []);
 
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
