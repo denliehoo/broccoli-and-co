@@ -1,6 +1,5 @@
 ## TODO:
 
-- Fix on refresh, looks like no styles
 - maybe need a 404 error page https://nextjs.org/docs/pages/getting-started/project-structure
 - Write unit test and ensure test coverage / performance. Maybe do unit test and cypress for integration https://nextjs.org/docs/pages/building-your-application/testing/jest
 - Set up prettier correctly
