@@ -1,6 +1,7 @@
 import { apiSendInvitation, ISendInvitation } from '@/api';
 import Button from '@/components/button';
 import FormItem from '@/components/form-item';
+import { API_ERROR_MESSAGE } from '@/constants/api-error-message';
 import { PATTERNS } from '@/constants/patterns';
 import { VALIDATION_MSG } from '@/constants/validation-messages';
 import { useAbortController } from '@/hooks/use-abort-controller';
@@ -19,7 +20,7 @@ interface IInviteModalForm {
 }
 
 const InviteModalForm: FC<IInviteModalForm> = ({ onSubmitSuccess }) => {
-  const { register, handleSubmit, watch, formState, trigger } =
+  const { register, handleSubmit, watch, formState, trigger, setFocus } =
     useForm<IFormInput>({ mode: 'onChange' });
 
   const { errors, isSubmitting } = formState;
@@ -38,6 +39,10 @@ const InviteModalForm: FC<IInviteModalForm> = ({ onSubmitSuccess }) => {
     } catch (error) {
       const errorMessage = getApiErrorMessage(error);
       setSubmitError(errorMessage);
+      if (errorMessage === API_ERROR_MESSAGE.EMAIL_IN_USE) {
+        console.log('yes it is');
+        setTimeout(() => setFocus('email'), 100);
+      }
     }
   };
 

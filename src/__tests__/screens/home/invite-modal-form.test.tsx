@@ -9,6 +9,7 @@ import {
 import InviteModalForm from '@/screens/home/body/invite-modal/form';
 import axios from 'axios';
 import { VALIDATION_MSG } from '@/constants/validation-messages';
+import { API_ERROR_MESSAGE } from '@/constants/api-error-message';
 
 describe('InviteModalForm', () => {
   const setup = () => {
@@ -104,7 +105,7 @@ describe('InviteModalForm', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText(/Bad Request: Email is already in use/i),
+        screen.getByText(API_ERROR_MESSAGE.EMAIL_IN_USE),
       ).toBeInTheDocument();
     });
 
@@ -121,7 +122,7 @@ export const simulateValidatedInviteFormSubmission = async (
   } else {
     jest.spyOn(axios, 'post').mockRejectedValue({
       response: {
-        data: { errorMessage: 'Bad Request: Email is already in use' },
+        data: { errorMessage: API_ERROR_MESSAGE.EMAIL_IN_USE },
       },
     });
   }

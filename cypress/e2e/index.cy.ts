@@ -1,3 +1,5 @@
+import { API_ERROR_MESSAGE } from '../../src/constants/api-error-message';
+
 describe('Email Invite Flow', () => {
   it('Success flow', () => {
     cy.visit('http://localhost:3000/');
@@ -33,7 +35,7 @@ describe('Email Invite Flow', () => {
     cy.contains('Submit').click();
 
     // Error content will appear
-    cy.contains('Bad Request: Email is already in use').should('be.visible');
+    cy.contains(API_ERROR_MESSAGE.EMAIL_IN_USE).should('be.visible');
     cy.contains(
       'You will be one of the first to experience Broccoli & Co. when we launch.',
     ).should('not.exist');
