@@ -6,14 +6,24 @@ import styled from 'styled-components';
 export interface IModalProps {
   isOpen: boolean;
   onClose: () => void;
+  closeOnOverlayClick?: boolean;
   children: ReactNode;
 }
 
-const Modal: FC<IModalProps> = ({ isOpen, onClose, children }) => {
-  if (!isOpen) return null;
+const Modal: FC<IModalProps> = ({
+  isOpen,
+  onClose,
+  closeOnOverlayClick,
+  children,
+}) => {
+  if (!isOpen) {
+    return null;
+  }
+
+  const onClickOverlay = closeOnOverlayClick ? onClose : undefined;
 
   return (
-    <StyledOverlay onClick={onClose} data-testid="modal-overlay">
+    <StyledOverlay onClick={onClickOverlay} data-testid="modal-overlay">
       <StyledContainer onClick={(e) => e.stopPropagation()}>
         <StyledClosedButton onClick={onClose}>×</StyledClosedButton>
         {children}

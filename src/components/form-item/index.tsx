@@ -39,7 +39,8 @@ const FormItem: FC<FormItemProps> = ({
 export default FormItem;
 
 const StyledContainer = styled.div`
-  height: 6rem;
+  // To prevent one line error messages from pushing other form items down
+  min-height: 6rem;
 `;
 
 const StyledLabel = styled.label`

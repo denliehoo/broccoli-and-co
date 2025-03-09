@@ -6,6 +6,7 @@ const renderModal = (props: Partial<IModalProps> = {}) => {
     isOpen: true,
     onClose: jest.fn(),
     children: <div>Modal Content</div>,
+    closeOnOverlayClick: false,
   };
   return render(<Modal {...defaultProps} {...props} />);
 };
@@ -31,8 +32,8 @@ describe('Modal', () => {
     expect(screen.queryByText('Modal Content')).not.toBeInTheDocument();
   });
 
-  it('calls onClose when the overlay is clicked', () => {
-    const { onClose } = setup({ isOpen: true });
+  it('calls onClose when the overlay is clicked and set to close only click overlay', () => {
+    const { onClose } = setup({ isOpen: true, closeOnOverlayClick: true });
 
     // Simulate click on the overlay
     fireEvent.click(screen.getByTestId('modal-overlay'));
