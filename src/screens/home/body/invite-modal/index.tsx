@@ -1,44 +1,31 @@
 import Modal from '@/components/modal';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { styled } from 'styled-components';
 import InviteModalForm from './form';
 import { EColors } from '@/themes';
 import InviteModalSuccess from './success';
+import {
+  EInviteModalContent,
+  INVITE_MODAL_TITLE,
+  useInviteModal,
+} from '@/context/invite-modal';
 
-interface IInviteModal {
-  isOpen: boolean;
-  setIsModalOpen: (isOpen: boolean) => void;
-}
-
-enum EContent {
-  FORM,
-  SUCCESS,
-}
-
-const MODAL_TILE: Record<EContent, string> = {
-  [EContent.FORM]: 'Request an invite',
-  [EContent.SUCCESS]: 'All done!',
-};
-
-const InviteModal: FC<IInviteModal> = ({ isOpen, setIsModalOpen }) => {
-  const [content, setContent] = useState<EContent>(EContent.FORM);
-
-  const onSubmitSuccessHandler = () => setContent(EContent.SUCCESS);
-
-  const onCloseHandler = () => {
-    setIsModalOpen(false);
-    setContent(EContent.FORM);
-  };
+const InviteModal: FC = () => {
+  const {
+    content = EInviteModalContent.FORM,
+    closeModal,
+    isOpen,
+  } = useInviteModal();
 
   return (
-    <Modal isOpen={isOpen} onClose={onCloseHandler}>
+    <Modal isOpen={isOpen} onClose={closeModal}>
       <StyledContainer>
-        <StyledTitle>{MODAL_TILE[content]}</StyledTitle>
+        <StyledTitle>{INVITE_MODAL_TITLE[content]}</StyledTitle>
         <StyledDivider />
-        {content === EContent.FORM ? (
-          <InviteModalForm onSubmitSuccess={onSubmitSuccessHandler} />
+        {content === EInviteModalContent.FORM ? (
+          <InviteModalForm />
         ) : (
-          <InviteModalSuccess onOk={onCloseHandler} />
+          <InviteModalSuccess />
         )}
       </StyledContainer>
     </Modal>

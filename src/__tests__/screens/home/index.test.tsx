@@ -1,10 +1,16 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import Home from '@/screens/home';
+import { setupWithUseInviteModalContext } from '@/utils/tests';
+
+// Note: It is necessary to mock the context at the top when we use it
+jest.mock('@/context/invite-modal');
 
 describe('Home Page', () => {
-  const setup = () => {
-    render(<Home />);
-  };
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  const setup = () => setupWithUseInviteModalContext(<Home />, false);
 
   it('shows the header', async () => {
     setup();
@@ -27,15 +33,13 @@ describe('Home Page', () => {
     expect(footerText).toBeInTheDocument();
   });
 
-  it('shows the invite modal', async () => {
-    setup();
+  it('opens invite modal on click button', async () => {
+    const { mockOpenModal } = setup();
 
+    screen.debug();
     const requestButton = screen.getByText('Request an invite');
     expect(requestButton).toBeInTheDocument();
     fireEvent.click(requestButton);
-    expect(screen.getByPlaceholderText('Full name')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Email')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Confirm email')).toBeInTheDocument();
-    expect(screen.getByText('Submit')).toBeInTheDocument();
+    expect(mockOpenModal).toHaveBeenCalled();
   });
 });

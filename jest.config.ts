@@ -19,6 +19,8 @@ const config: Config = {
     '<rootDir>/src/screens/**/*.{ts,tsx}',
     '<rootDir>/src/hooks/**/*.{ts,tsx}',
     '<rootDir>/src/utils/**/*.{ts,tsx}',
+    // exclude test utils
+    '!<rootDir>/src/utils/tests/**',
   ],
 
   coverageThreshold: {
@@ -28,6 +30,9 @@ const config: Config = {
       lines: 80,
       statements: 80,
     },
+  },
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
 };
 

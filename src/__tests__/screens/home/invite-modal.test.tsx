@@ -1,51 +1,50 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import InviteModal from '@/screens/home/body/invite-modal';
-import { simulateValidatedInviteFormSubmission } from './invite-modal-form.test';
+
+import {
+  EInviteModalContent,
+  INVITE_MODAL_TITLE,
+} from '@/context/invite-modal';
+import { API_ERROR_MESSAGE } from '@/constants/api-error-message';
+import {
+  setupWithUseInviteModalContext,
+  simulateValidatedInviteFormSubmission,
+} from '@/utils/tests';
+
+jest.mock('@/context/invite-modal');
 
 describe('InviteModal', () => {
-  const setIsModalOpen = jest.fn();
-
-  const setup = (isOpen: boolean) => {
-    render(<InviteModal isOpen={isOpen} setIsModalOpen={setIsModalOpen} />);
-  };
-
-  it('does not render the modal when isOpen is false', () => {
-    setup(false);
-
-    expect(screen.queryByText('Request an invite')).not.toBeInTheDocument();
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
-  it('displays the form content upon opening modal', () => {
-    setup(true);
+  const setup = () => setupWithUseInviteModalContext(<InviteModal />, true);
 
-    expect(screen.getByText('Request an invite')).toBeInTheDocument();
-    expect(screen.queryByText('All done!')).not.toBeInTheDocument();
+  it('displays the form content upon opening modal', async () => {
+    setup();
+
+    expect(
+      screen.getByText(INVITE_MODAL_TITLE[EInviteModalContent.FORM]),
+    ).toBeInTheDocument();
   });
 
   it('remains at form content after unsuccessful form submission', async () => {
-    setup(true);
-
+    setup();
     await simulateValidatedInviteFormSubmission(screen, false);
 
-    expect(screen.queryByText('Request an invite')).toBeInTheDocument();
+    expect(
+      screen.queryByText(API_ERROR_MESSAGE.EMAIL_IN_USE),
+    ).toBeInTheDocument();
   });
 
-  it('switches to success content after successful form submission and resets to form content on clicking on', async () => {
-    setup(true);
+  it('switches to success content after successful form submission', async () => {
+    const { mockSetContent } = setup();
 
     await simulateValidatedInviteFormSubmission(screen, true);
 
-    await waitFor(() =>
-      expect(screen.getByText('All done!')).toBeInTheDocument(),
-    );
+    // Verify that setContent was called with SUCCESS
+    expect(mockSetContent).toHaveBeenCalledWith(EInviteModalContent.SUCCESS);
 
-    expect(screen.queryByText('Request an invite')).not.toBeInTheDocument();
-
-    // Close the modal by clicking ok
-    const okButton = screen.getByText('OK');
-    expect(okButton).toBeInTheDocument();
-    fireEvent.click(okButton);
-
-    expect(screen.queryByText('All done!')).not.toBeInTheDocument();
+    screen.debug();
   });
 });

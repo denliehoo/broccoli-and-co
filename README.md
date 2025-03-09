@@ -105,6 +105,7 @@ This project is built using modern web technologies:
 - React Hook Form - Lightweight and efficient form validation with built-in support for React components.
 - Axios + Abort Controllers - Simplifies HTTP requests to the backend API and aborts unncessary requests.
 - ESLint + Prettier- Ensures code consistency and quality.
+- React Context (createContext + useContext) - Manages global state efficiently, preventing prop drilling and enabling seamless data sharing across components.
 - Jest + React Testing Library - Provides unit testing
 - Cypress - Peforms end-to-end integration testings
 

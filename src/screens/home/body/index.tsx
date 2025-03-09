@@ -1,13 +1,13 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { styled } from 'styled-components';
 import InviteModal from './invite-modal';
 import Button from '@/components/button';
 import AnimatedText from '@/components/animated-text';
 import { EColors } from '@/themes';
+import { useInviteModal } from '@/context/invite-modal';
 
 const HomeBody: FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const onClickHandler = () => setIsModalOpen(true);
+  const { openModal } = useInviteModal();
 
   return (
     <StyledContainer>
@@ -25,8 +25,8 @@ const HomeBody: FC = () => {
             $colorOnJump={EColors.GOLDEN}
           />
         </StyledDescription>
-        <Button onClick={onClickHandler}>Request an invite</Button>
-        <InviteModal isOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+        <Button onClick={openModal}>Request an invite</Button>
+        <InviteModal />
       </StyledContent>
     </StyledContainer>
   );

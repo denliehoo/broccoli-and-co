@@ -1,30 +1,27 @@
-import {
-  render,
-  screen,
-  fireEvent,
-  waitFor,
-  act,
-  Screen,
-} from '@testing-library/react';
+import { screen, fireEvent, waitFor } from '@testing-library/react';
 import InviteModalForm from '@/screens/home/body/invite-modal/form';
-import axios from 'axios';
 import { VALIDATION_MSG } from '@/constants/validation-messages';
 import { API_ERROR_MESSAGE } from '@/constants/api-error-message';
 import { RANGE_PATTERNS } from '@/constants/patterns';
+import {
+  setupWithUseInviteModalContext,
+  simulateValidatedInviteFormSubmission,
+} from '@/utils/tests';
+
+jest.mock('@/context/invite-modal');
 
 describe('InviteModalForm', () => {
   const setup = () => {
-    const onSubmitSuccess = jest.fn();
-    const component = render(
-      <InviteModalForm onSubmitSuccess={onSubmitSuccess} />,
+    const contextProps = setupWithUseInviteModalContext(
+      <InviteModalForm />,
+      true,
     );
     return {
       fullNameField: screen.getByPlaceholderText('Full name'),
       emailField: screen.getByPlaceholderText('Email'),
       confirmEmailField: screen.getByPlaceholderText('Confirm email'),
       submitButton: screen.getByText(/Submit/i),
-      onSubmitSuccess,
-      component,
+      contextProps,
     };
   };
 
@@ -121,32 +118,3 @@ describe('InviteModalForm', () => {
     expect(submitButton).not.toBeDisabled();
   });
 });
-
-type TScreen = Screen<typeof import('@testing-library/dom/types/queries')>;
-
-export const simulateValidatedInviteFormSubmission = async (
-  screen: TScreen,
-  isApiSuccess: boolean,
-) => {
-  if (isApiSuccess) {
-    jest.spyOn(axios, 'post').mockResolvedValue({});
-  } else {
-    jest.spyOn(axios, 'post').mockRejectedValue({
-      response: {
-        data: { errorMessage: API_ERROR_MESSAGE.EMAIL_IN_USE },
-      },
-    });
-  }
-  const fullNameField = screen.getByPlaceholderText('Full name');
-  const emailField = screen.getByPlaceholderText('Email');
-  const confirmEmailField = screen.getByPlaceholderText('Confirm email');
-  const submitButton = screen.getByText(/Submit/i);
-
-  fireEvent.change(fullNameField, { target: { value: 'Test Name' } });
-  fireEvent.change(emailField, { target: { value: 'test@test.com' } });
-  fireEvent.change(confirmEmailField, { target: { value: 'test@test.com' } });
-
-  await act(async () => {
-    fireEvent.click(submitButton);
-  });
-};

@@ -1,19 +1,17 @@
 import Button from '@/components/button';
+import { useInviteModal } from '@/context/invite-modal';
 import { FC } from 'react';
 import { styled } from 'styled-components';
 
-interface IInviteModalSuccess {
-  onOk: () => void;
-}
-
-const InviteModalSuccess: FC<IInviteModalSuccess> = ({ onOk }) => {
+const InviteModalSuccess: FC = () => {
+  const { closeModal } = useInviteModal();
   return (
     <StyledContainer>
       <StyledText>
         You will be one of the first to experience Broccoli & Co. when we
         launch.
       </StyledText>
-      <Button onClick={onOk} $isFullWidth>
+      <Button onClick={closeModal} $isFullWidth>
         OK
       </Button>
     </StyledContainer>

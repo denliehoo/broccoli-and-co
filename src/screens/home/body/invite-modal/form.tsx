@@ -4,6 +4,7 @@ import FormItem from '@/components/form-item';
 import { API_ERROR_MESSAGE } from '@/constants/api-error-message';
 import { PATTERNS, RANGE_PATTERNS } from '@/constants/patterns';
 import { VALIDATION_MSG } from '@/constants/validation-messages';
+import { EInviteModalContent, useInviteModal } from '@/context/invite-modal';
 import { useAbortController } from '@/hooks/use-abort-controller';
 import { getApiErrorMessage } from '@/request';
 import { EColors } from '@/themes';
@@ -15,11 +16,8 @@ export interface IFormInput extends ISendInvitation {
   confirmEmail: string;
 }
 
-interface IInviteModalForm {
-  onSubmitSuccess: () => void;
-}
-
-const InviteModalForm: FC<IInviteModalForm> = ({ onSubmitSuccess }) => {
+const InviteModalForm: FC = () => {
+  const { setContent } = useInviteModal();
   const { register, handleSubmit, watch, formState, trigger, setFocus } =
     useForm<IFormInput>({ mode: 'onChange' });
 
@@ -35,7 +33,7 @@ const InviteModalForm: FC<IInviteModalForm> = ({ onSubmitSuccess }) => {
     const params = { name, email };
     try {
       await apiSendInvitation(params, signal);
-      onSubmitSuccess();
+      setContent(EInviteModalContent.SUCCESS);
     } catch (error) {
       const errorMessage = getApiErrorMessage(error);
       setSubmitError(errorMessage);
