@@ -55,7 +55,7 @@ npm run start
 
 ```
 
-We can then run our integeration tests command:
+We can then run our integeration tests command on a separate terminal:
 
 ```sh
 npm run cypress

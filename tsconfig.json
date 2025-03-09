@@ -18,5 +18,11 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+  // To solve typescript issue with jest and react-testing-library with cypress https://github.com/cypress-io/cypress/issues/22059#issuecomment-1428298264
+  "./cypress.config.ts",
+  "cypress",
+  "**/*.cy.tsx"
+]
 }
