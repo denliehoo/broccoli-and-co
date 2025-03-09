@@ -1,4 +1,4 @@
-import { MIN_WIDTH, MOBILE_BREAK_POINT } from '@/constants/break-point';
+import { MIN_WIDTH, MOBILE_BREAK_POINT } from '@/themes';
 import { EColors } from '@/themes';
 import { FC, ReactNode } from 'react';
 import styled from 'styled-components';

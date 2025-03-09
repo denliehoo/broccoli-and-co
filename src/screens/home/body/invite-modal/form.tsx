@@ -40,7 +40,6 @@ const InviteModalForm: FC<IInviteModalForm> = ({ onSubmitSuccess }) => {
       const errorMessage = getApiErrorMessage(error);
       setSubmitError(errorMessage);
       if (errorMessage === API_ERROR_MESSAGE.EMAIL_IN_USE) {
-        console.log('yes it is');
         setTimeout(() => setFocus('email'), 100);
       }
     }

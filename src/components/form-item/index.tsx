@@ -30,7 +30,6 @@ const FormItem: FC<FormItemProps> = ({
         type={type}
         placeholder={placeholder ?? label}
         $isError={Boolean(error)}
-        label="Full"
       />
       {error && <StyledError>{error.message}</StyledError>}
     </StyledContainer>

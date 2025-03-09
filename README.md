@@ -108,4 +108,7 @@ This project is built using modern web technologies:
 - Jest + React Testing Library - Provides unit testing
 - Cypress - Peforms end-to-end integration testings
 
-## Design
+## Design & Styling
+
+- Created reusable components (e.g. button, inputs) in the components folder
+- Created a themes folder which includes color.ts and break-point.ts for consistent colors and break points

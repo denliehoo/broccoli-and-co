@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import HomeHeader from './header';
 import HomeFooter from './footer';
 import HomeBody from './body';
-import { MIN_WIDTH } from '@/constants/break-point';
+import { MIN_WIDTH } from '@/themes';
 import { getImageProps } from 'next/image';
 import { getBackgroundImage } from '@/utils/get-background-image';
 
