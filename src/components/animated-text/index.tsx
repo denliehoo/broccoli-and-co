@@ -13,10 +13,13 @@ const AnimatedText: FC<IAnimtedText> = ({
 }) => {
   const words = text.split(' ');
 
-  return words.map((word, index) => (
-    <StyledWord key={index} {...wordStyle}>
-      {word.split('').map((char, i) => (
-        <StyledLetter $colorOnJump={$colorOnJump} key={index + i + char + text}>
+  return words.map((word, wordIndex) => (
+    <StyledWord key={wordIndex} {...wordStyle}>
+      {word.split('').map((char, charIndex) => (
+        <StyledLetter
+          $colorOnJump={$colorOnJump}
+          key={`${wordIndex}-${charIndex}`}
+        >
           {char}
         </StyledLetter>
       ))}

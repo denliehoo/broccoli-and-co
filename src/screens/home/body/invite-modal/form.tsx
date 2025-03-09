@@ -2,7 +2,7 @@ import { apiSendInvitation, ISendInvitation } from '@/api';
 import Button from '@/components/button';
 import FormItem from '@/components/form-item';
 import { API_ERROR_MESSAGE } from '@/constants/api-error-message';
-import { PATTERNS } from '@/constants/patterns';
+import { PATTERNS, RANGE_PATTERNS } from '@/constants/patterns';
 import { VALIDATION_MSG } from '@/constants/validation-messages';
 import { useAbortController } from '@/hooks/use-abort-controller';
 import { getApiErrorMessage } from '@/request';
@@ -64,10 +64,8 @@ const InviteModalForm: FC<IInviteModalForm> = ({ onSubmitSuccess }) => {
         label="Full name"
         register={register('name', {
           required: VALIDATION_MSG.REQUIRED.NAME,
-          minLength: {
-            value: 3,
-            message: VALIDATION_MSG.MIN_LENGTH.NAME,
-          },
+          minLength: RANGE_PATTERNS.MIN_LENGTH('Name', 3),
+          maxLength: RANGE_PATTERNS.MAX_LENGTH('Name', 100),
           onChange: resetSubmitError,
         })}
         error={errors.name}

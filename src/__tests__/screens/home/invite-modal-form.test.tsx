@@ -10,6 +10,7 @@ import InviteModalForm from '@/screens/home/body/invite-modal/form';
 import axios from 'axios';
 import { VALIDATION_MSG } from '@/constants/validation-messages';
 import { API_ERROR_MESSAGE } from '@/constants/api-error-message';
+import { RANGE_PATTERNS } from '@/constants/patterns';
 
 describe('InviteModalForm', () => {
   const setup = () => {
@@ -51,16 +52,24 @@ describe('InviteModalForm', () => {
     expect(emailErrors.length).toEqual(2);
   });
 
-  it('shows full name min length validation', async () => {
-    const { fullNameField, submitButton } = setup();
+  it('shows full name length validation', async () => {
+    const { fullNameField } = setup();
 
-    // Min 3 character
-    fireEvent.change(fullNameField, { target: { value: 'To' } });
-    fireEvent.click(submitButton);
+    // Min 3 characters
+    fireEvent.change(fullNameField, { target: { value: 'a'.repeat(2) } });
 
     await waitFor(() => {
       expect(
-        screen.getByText(VALIDATION_MSG.MIN_LENGTH.NAME),
+        screen.getByText(RANGE_PATTERNS.MIN_LENGTH('Name', 3).message),
+      ).toBeInTheDocument();
+    });
+
+    // Max 100 characters
+    fireEvent.change(fullNameField, { target: { value: 'a'.repeat(101) } });
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(RANGE_PATTERNS.MAX_LENGTH('Name', 100).message),
       ).toBeInTheDocument();
     });
   });
@@ -113,8 +122,10 @@ describe('InviteModalForm', () => {
   });
 });
 
+type TScreen = Screen<typeof import('@testing-library/dom/types/queries')>;
+
 export const simulateValidatedInviteFormSubmission = async (
-  screen: Screen<typeof import('@testing-library/dom/types/queries')>,
+  screen: TScreen,
   isApiSuccess: boolean,
 ) => {
   if (isApiSuccess) {

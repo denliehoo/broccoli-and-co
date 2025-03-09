@@ -11,7 +11,6 @@ const renderModal = (props: Partial<IModalProps> = {}) => {
   return render(<Modal {...defaultProps} {...props} />);
 };
 
-// Setup function to handle common setup logic for each test
 const setup = (props: Partial<IModalProps> = {}) => {
   const onClose = jest.fn();
   renderModal({ ...props, onClose });
@@ -28,7 +27,6 @@ describe('Modal', () => {
   it('does not show the modal when isOpen is false', () => {
     setup({ isOpen: false });
 
-    // Check if modal content is not rendered
     expect(screen.queryByText('Modal Content')).not.toBeInTheDocument();
   });
 

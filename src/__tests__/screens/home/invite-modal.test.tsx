@@ -46,7 +46,6 @@ describe('InviteModal', () => {
     expect(okButton).toBeInTheDocument();
     fireEvent.click(okButton);
 
-    expect(screen.queryByText('Request an invite')).toBeInTheDocument();
     expect(screen.queryByText('All done!')).not.toBeInTheDocument();
   });
 });

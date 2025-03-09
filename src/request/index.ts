@@ -3,6 +3,8 @@ import axios, { AxiosError } from 'axios';
 class ApiRequest {
   static async post(url: string, params?: unknown, signal?: AbortSignal) {
     const controller = new AbortController();
+
+    // Abort rquest if it takes too long
     const timeout = setTimeout(() => controller.abort(), 5000);
 
     try {

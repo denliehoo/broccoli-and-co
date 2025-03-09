@@ -68,11 +68,11 @@ From there, cypress will pop up, then follow the steps:
 3. Click on the Start E2E Testing button
 4. The `Specs` tab will be selected by default
 5. Click `E2E specs`
-6. Under the `cypress\e2e` folder, click on index.cy.ts to run the integration tests
+6. Under the `cypress\e2e` folder, click on `index.cy.ts` to run the integration tests
 
-Note: Cypress will automatically run the tests whenever we make any code changes, please close it when you're done with tests to prevent it from runnning unnecessarily
+Note: Cypress will automatically run the tests whenever we make any code changes. Please close it when you're done with tests to prevent it from runnning unnecessarily
 
-## Deployment
+## Production
 
 To build the app for production:
 
@@ -103,8 +103,8 @@ This project is built using modern web technologies:
 - React - Component-based front-end library for building interactive UIs.
 - Styled Components - Enables CSS-in-JS for scoped and dynamic styling.
 - React Hook Form - Lightweight and efficient form validation with built-in support for React components.
-- Axios - Simplifies HTTP requests to the backend API.
-- ESLint - Ensures code consistency and quality.
+- Axios + Abort Controllers - Simplifies HTTP requests to the backend API and aborts unncessary requests.
+- ESLint + Prettier- Ensures code consistency and quality.
 - Jest + React Testing Library - Provides unit testing
 - Cypress - Peforms end-to-end integration testings
 
