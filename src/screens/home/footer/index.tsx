@@ -16,7 +16,7 @@ export default HomeFooter;
 const StyledContainer = styled.footer`
   text-align: center;
   padding: 1rem;
-  background-color: ${EColors.FOOTER};
+  background-color: ${EColors.GREEN_600};
   color: ${EColors.WHITE};
 `;
 

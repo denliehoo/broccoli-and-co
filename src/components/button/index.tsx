@@ -40,7 +40,7 @@ const StyledButton = styled.button<IStyledButtonProps>`
     background 0.3s ease,
     transform 0.2s ease;
 
-  background: ${EColors.PRIMARY};
+  background: ${EColors.GREEN_400};
   color: ${EColors.WHITE};
 
   display: flex;
@@ -49,12 +49,12 @@ const StyledButton = styled.button<IStyledButtonProps>`
   gap: 8px;
 
   &:hover {
-    background: ${EColors.ACCENT};
+    background: ${EColors.GREEN_500};
     transform: translateY(-2px);
   }
 
   &:disabled {
-    background: ${EColors.LIGHT_GRAY};
+    background: ${EColors.GRAY_300};
     color: ${EColors.BLACK};
     cursor: not-allowed;
     opacity: 0.6;

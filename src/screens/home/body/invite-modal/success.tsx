@@ -10,7 +10,7 @@ const InviteModalSuccess: FC<IInviteModalSuccess> = ({ onOk }) => {
   return (
     <StyledContainer>
       <StyledText>
-        You will be the one of the first to experience Broccoli & Co. when we
+        You will be one of the first to experience Broccoli & Co. when we
         launch.
       </StyledText>
       <Button onClick={onOk} $isFullWidth>

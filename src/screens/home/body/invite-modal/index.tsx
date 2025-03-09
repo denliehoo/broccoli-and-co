@@ -62,6 +62,6 @@ const StyledTitle = styled.div`
 const StyledDivider = styled.div`
   height: 2px;
   width: 80px;
-  background-color: ${EColors.ACCENT};
+  background-color: ${EColors.GREEN_500};
   margin-bottom: 1rem;
 `;

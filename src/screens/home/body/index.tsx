@@ -2,6 +2,8 @@ import { FC, useState } from 'react';
 import { styled } from 'styled-components';
 import InviteModal from './invite-modal';
 import Button from '@/components/button';
+import AnimatedText from '@/components/animated-text';
+import { EColors } from '@/themes';
 
 const HomeBody: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -11,10 +13,17 @@ const HomeBody: FC = () => {
     <StyledContainer>
       <StyledContent>
         <StyledTitle>
-          A better way <br /> to enjoy every day.
+          <AnimatedText text="A better way" />
+          <br />
+          <AnimatedText text="to enjoy every day." />
         </StyledTitle>
         <StyledDescription>
-          Be the first to know when we launch.
+          <AnimatedText
+            text="Be the first to know when we launch."
+            $fontSize={'1.3rem'}
+            $fontWeight={400}
+            $colorOnJump={EColors.GOLDEN}
+          />
         </StyledDescription>
         <Button onClick={onClickHandler}>Request an invite</Button>
         <InviteModal isOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
@@ -22,8 +31,6 @@ const HomeBody: FC = () => {
     </StyledContainer>
   );
 };
-
-export default HomeBody;
 
 const StyledContainer = styled.main`
   flex: 1;
@@ -40,9 +47,9 @@ const StyledContent = styled.div`
   max-width: 500px;
 `;
 
-const StyledTitle = styled.h1`
-  font-size: 3rem;
+const StyledTitle = styled.div`
   text-align: center;
+  margin-bottom: 1.5rem;
 `;
 
 const StyledDescription = styled.div`
@@ -50,3 +57,5 @@ const StyledDescription = styled.div`
   text-align: center;
   margin-bottom: 2rem;
 `;
+
+export default HomeBody;

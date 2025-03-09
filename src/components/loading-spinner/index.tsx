@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 
 const LoadingSpinner = styled.div`
   border: 4px solid ${EColors.WHITE};
-  border-top: 4px solid ${EColors.PRIMARY};
+  border-top: 4px solid ${EColors.GREEN_400};
   border-radius: 50%;
   width: 0.75rem;
   height: 0.75rem;

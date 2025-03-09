@@ -25,7 +25,7 @@ const StyledContainer = styled.header`
   padding-top: 1rem;
   padding-bottom: 1rem;
   padding-left: 6rem;
-  background-color: ${EColors.ACCENT};
+  background-color: ${EColors.GREEN_500};
   color: ${EColors.WHITE};
   display: flex;
   flex-direction: row;

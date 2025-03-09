@@ -16,7 +16,7 @@ describe('Home Page', () => {
   it('shows the body', async () => {
     setup();
 
-    const bodyText = screen.getByText('Be the first to know when we launch.');
+    const bodyText = screen.getByText('Request an invite');
     expect(bodyText).toBeInTheDocument();
   });
 

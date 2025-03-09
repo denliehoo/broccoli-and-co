@@ -19,7 +19,7 @@ const StyledInput = styled.input<IStyledInput>`
   padding: 12px;
   font-size: 1 rem;
   border: 2px solid
-    ${({ $isError }) => ($isError ? EColors.ERROR : EColors.GRAY)};
+    ${({ $isError }) => ($isError ? EColors.ERROR : EColors.GRAY_400)};
   border-radius: 8px;
   background: ${EColors.WHITE};
   color: ${EColors.BLACK};
@@ -32,14 +32,14 @@ const StyledInput = styled.input<IStyledInput>`
   &:focus {
     outline: none;
     border-color: ${({ $isError }) =>
-      $isError ? EColors.ERROR : EColors.PRIMARY};
+      $isError ? EColors.ERROR : EColors.GREEN_400};
     box-shadow: 0 0 5px
-      ${({ $isError }) => ($isError ? EColors.ERROR : EColors.SECONDARY)};
+      ${({ $isError }) => ($isError ? EColors.ERROR : EColors.GREEN_300)};
   }
 
   &:disabled {
-    background: ${EColors.LIGHT_GRAY};
-    border-color: ${EColors.BACKGROUND};
+    background: ${EColors.GRAY_300};
+    border-color: ${EColors.GREEN_200};
     color: ${EColors.BLACK};
     cursor: not-allowed;
     opacity: 0.6;

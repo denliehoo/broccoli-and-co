@@ -29,7 +29,7 @@ const StyledContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: ${EColors.BACKGROUND};
+  background-color: ${EColors.GREEN_200};
 `;
 
 const StyledWrapper = styled.div`

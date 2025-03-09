@@ -6,6 +6,6 @@ if ! jest; then
   exit 1
 fi
 
-# Run the build if tests pass
+echo "Tests passed, starting build process..."
 next build
 echo "Build success!"

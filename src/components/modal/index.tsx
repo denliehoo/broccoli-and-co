@@ -39,7 +39,7 @@ const StyledOverlay = styled.div`
 `;
 
 const StyledContainer = styled.div`
-  background-color: ${EColors.BACKGROUND};
+  background-color: ${EColors.GREEN_200};
   padding: 2rem;
   border-radius: 8px;
   max-width: 500px;
