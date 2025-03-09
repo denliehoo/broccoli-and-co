@@ -2,7 +2,6 @@ import { FC, useState } from 'react';
 import { styled } from 'styled-components';
 import InviteModal from './invite-modal';
 import Button from '@/components/button';
-import { EColors } from '@/themes';
 
 const HomeBody: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,7 +26,6 @@ const HomeBody: FC = () => {
 export default HomeBody;
 
 const StyledContainer = styled.main`
-  background-color: ${EColors.BACKGROUND};
   flex: 1;
   display: flex;
   align-items: center;

@@ -1,19 +1,3 @@
-## TODO:
-
-- maybe need a 404 error page https://nextjs.org/docs/pages/getting-started/project-structure
-- Write unit test and ensure test coverage / performance. Maybe do unit test and cypress for integration https://nextjs.org/docs/pages/building-your-application/testing/jest
-- Set up prettier correctly
-- A nicer layout?
-- Documentation in readme
-  - How to install ,build, etc
-  - Explain usage of tech stack
-- Test for mobile friendliness
-- Update logos
-- Clean up code:
-  - Remove the unnecessary code (e.g. the API in pages)
-  - Remove unncessary comments
-  - Make sure all colors using ecolors, where practical
-
 # BROCCOLI & CO. LANDIN PAGE
 
 ## Overview
@@ -26,7 +10,7 @@ This is a simple single-page web application for Broccoli & Co., an upcoming onl
 - A centered section containing a heading, description, and a "Request an Invite" button.
 - A popup form for users to enter their details.
 - Form validation to ensure correct input before submitting.
-- API integration to submit the request.
+- API integration to submit the request along with abort controllers
 - Error handling for invalid responses from the backend.
 
 ## Tech Stack

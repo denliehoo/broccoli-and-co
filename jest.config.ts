@@ -18,6 +18,7 @@ const config: Config = {
     '<rootDir>/src/components/**/*.{ts,tsx}',
     '<rootDir>/src/screens/**/*.{ts,tsx}',
     '<rootDir>/src/hooks/**/*.{ts,tsx}',
+    '<rootDir>/src/utils/**/*.{ts,tsx}',
   ],
 
   coverageThreshold: {
