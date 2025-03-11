@@ -41,7 +41,8 @@ const Home: FC = () => {
 
 const StyledContainer = styled.div<{ $imgSrc?: string }>`
   position: relative;
-  height: 100vh;
+  height: 100vh; // fallback for browsers that do not support 100vh
+  height: 100dvh;
   width: 100vw;
   display: flex;
   flex-direction: column;

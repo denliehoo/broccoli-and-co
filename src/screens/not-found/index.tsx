@@ -28,7 +28,8 @@ const StyledContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100vh; // fallback for browsers that do not support 100vh
+  height: 100dvh;
   background-color: ${EColors.GREEN_200};
 `;
 
