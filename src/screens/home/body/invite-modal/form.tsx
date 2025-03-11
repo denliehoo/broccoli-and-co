@@ -30,7 +30,7 @@ const InviteModalForm: FC = () => {
     const signal = createAbortController();
 
     const { name, email } = data;
-    const params = { name, email };
+    const params = { name, email: email.toLowerCase() };
     try {
       await apiSendInvitation(params, signal);
       setContent(EInviteModalContent.SUCCESS);
