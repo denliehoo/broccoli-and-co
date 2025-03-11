@@ -1,6 +1,6 @@
 import { MIN_WIDTH, MOBILE_BREAK_POINT } from '@/themes';
 import { EColors } from '@/themes';
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 import styled from 'styled-components';
 
 export interface IModalProps {
@@ -16,6 +16,24 @@ const Modal: FC<IModalProps> = ({
   closeOnOverlayClick,
   children,
 }) => {
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.removeEventListener('keydown', handleKeyDown);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) {
     return null;
   }

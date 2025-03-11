@@ -21,6 +21,8 @@ This is a simple single-page web application for Broccoli & Co., an upcoming onl
    ```
 4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+Note: please ensure node version is `18.18.0` and above
+
 ## Running unit tests
 
 To run unit tests once:

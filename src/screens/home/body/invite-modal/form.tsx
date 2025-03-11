@@ -56,6 +56,13 @@ const InviteModalForm: FC = () => {
     }
   };
 
+  const onValidateConfirmEmail = (value: string) => {
+    if (value.toLowerCase() === watch('email').toLowerCase()) {
+      return true;
+    }
+    return VALIDATION_MSG.VALIDATE.MATCH_EMAIL;
+  };
+
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <FormItem
@@ -84,8 +91,7 @@ const InviteModalForm: FC = () => {
         register={register('confirmEmail', {
           required: VALIDATION_MSG.REQUIRED.EMAIL,
           pattern: PATTERNS.EMAIL,
-          validate: (value) =>
-            value === watch('email') || VALIDATION_MSG.VALIDATE.MATCH_EMAIL,
+          validate: onValidateConfirmEmail,
           onChange: resetSubmitError,
         })}
         error={errors.confirmEmail}
