@@ -115,3 +115,11 @@ This project is built using modern web technologies:
 
 - Created reusable components (e.g. button, inputs) in the components folder
 - Created a themes folder which includes color.ts and break-point.ts for consistent colors and break points
+
+## Mobile friendly
+
+This application is mobile friendly and includes features like:
+
+- Including breakpoints for mobile
+- Used 100dvh to ensure a fullscreen application even when using mobile web browsers
+- Allow mobile users to close modal using back button, simulating native mobile behaviours
